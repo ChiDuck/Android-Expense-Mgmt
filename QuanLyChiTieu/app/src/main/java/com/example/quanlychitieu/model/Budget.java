@@ -1,4 +1,4 @@
-package com.example.quanlychitieu;
+package com.example.quanlychitieu.model;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
@@ -8,7 +8,8 @@ import androidx.room.PrimaryKey;
 
 import java.util.Date;
 
-@Entity(foreignKeys = {@ForeignKey(entity = Category.class, parentColumns = "category_id", childColumns = "category_id"),
+@Entity(tableName = "budget",
+        foreignKeys = {@ForeignKey(entity = Category.class, parentColumns = "category_id", childColumns = "category_id"),
                        @ForeignKey(entity = User.class, parentColumns = "user_id", childColumns = "user_id")})
 public class Budget {
     @NonNull
