@@ -25,4 +25,8 @@ public interface UserDAO {
     void updateUser(User... users);
     @Query("DELETE FROM user")
     void deleteAllUsers();
+    @Query("SELECT * FROM user WHERE email = :email AND password_hash = :pass LIMIT 1")
+    LiveData<User> login(String email, String pass);
+    @Query("SELECT email FROM user WHERE email = :email LIMIT 1")
+    LiveData<String> signupCheck(String email);
 }

@@ -17,6 +17,10 @@ import com.example.quanlychitieu.model.Notification;
 import com.example.quanlychitieu.model.Transaction;
 import com.example.quanlychitieu.model.User;
 
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 @Database(entities = {User.class, Category.class, Budget.class, Transaction.class, Notification.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
@@ -29,6 +33,7 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract BudgetDAO budgetDAO();
     public abstract TransactionDAO transDAO();
     public abstract NotificationDAO notifDAO();
+    public static final ExecutorService executor = Executors.newFixedThreadPool(4);
 
     public static AppDatabase getDatabase(Context context){
         if (INSTANCE == null) {

@@ -44,31 +44,31 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        ten = findViewById(R.id.txtten);
-        luu = findViewById(R.id.btnluu);
-        list = findViewById(R.id.list);
-        ds = new ArrayList<>();
-        adapter = new UserAdapter(MainActivity.this, R.layout.item_user,ds);
-        list.setAdapter(adapter);
-        userVM = new ViewModelProvider(this).get(UserViewModel.class);
-
-        userVM.deleteAll();
-
-        userVM.getAllUsers().observe(this, users -> {
-            if (users != null && !users.isEmpty()) {
-                adapter.setusers(users);
-                Toast.makeText(MainActivity.this,"Them thanh cong", Toast.LENGTH_LONG).show();
-            } else {
-                Log.d("MainActivity", "No u found");
-            }
-        });
-        luu.setOnClickListener(view -> {
-            String s = ten.getText().toString();
-            User u = new User();
-            u.setName(s);
-
-            userVM.insert(u);
-            ten.setText("");
-        });
+//        ten = findViewById(R.id.txtten);
+//        luu = findViewById(R.id.btnluu);
+//        list = findViewById(R.id.list);
+//        ds = new ArrayList<>();
+//        adapter = new UserAdapter(MainActivity.this, R.layout.item_user,ds);
+//        list.setAdapter(adapter);
+//        userVM = new ViewModelProvider(this).get(UserViewModel.class);
+//
+//        userVM.deleteAll();
+//
+//        userVM.getAllUsers().observe(this, users -> {
+//            if (users != null && !users.isEmpty()) {
+//                adapter.setusers(users);
+//                Toast.makeText(MainActivity.this,"Them thanh cong", Toast.LENGTH_LONG).show();
+//            } else {
+//                Log.d("MainActivity", "No u found");
+//            }
+//        });
+//        luu.setOnClickListener(view -> {
+//            String s = ten.getText().toString();
+//            User u = new User();
+//            u.setName(s);
+//
+//            userVM.insert(u);
+//            ten.setText("");
+//        });
     }
 }

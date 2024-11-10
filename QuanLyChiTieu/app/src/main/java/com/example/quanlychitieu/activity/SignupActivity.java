@@ -1,6 +1,5 @@
 package com.example.quanlychitieu.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,27 +10,27 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.quanlychitieu.R;
 import com.example.quanlychitieu.model.User;
 import com.example.quanlychitieu.viewmodel.UserViewModel;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
-public class LoginActivity extends AppCompatActivity {
+public class SignupActivity extends AppCompatActivity {
 
-    EditText txtEmail, txtPasswd;
-    Button btnLogin, btnSignup;
+    EditText txtName,txtEmail, txtPasswd;
+    Button btnSignup, btnBack;
     UserViewModel userVM;
-    User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_signup);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -42,33 +41,36 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void addEvents() {
-        btnLogin.setOnClickListener(view -> {
+        btnSignup.setOnClickListener(view -> {
+            String name = txtName.getText().toString();
             String email = txtEmail.getText().toString();
             String pass = txtPasswd.getText().toString();
+            Date create = Calendar.getInstance().getTime();
 
-            userVM.login(email, pass).observe(this, u -> {
-                if (u != null) {
-                    user = u;
-                    //  user.setLast_login(Calendar.getInstance().getTime());
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(intent);
+            userVM.signupCheck(email).observe(this, e -> {
+                if (e == null) {
+                    if (!email.isEmpty() && !name.isEmpty() && !pass.isEmpty()) {
+                        User user = new User(name, email, pass, create, null);
+                        userVM.insert(user);
+                        finish();
+                    } else Toast.makeText(this, "Vui lòng điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(this, "Sai thông tin đăng nhập!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Email đã có tài khoản!", Toast.LENGTH_SHORT).show();
                 }
             });
         });
-        btnSignup.setOnClickListener(view -> {
-            Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
-            startActivity(intent);
+
+        btnBack.setOnClickListener(view -> {
+            finish();
         });
     }
 
     private void addControls() {
+        txtName = findViewById(R.id.txtName);
         txtEmail = findViewById(R.id.txtEmail);
         txtPasswd = findViewById(R.id.txtPassword);
-        btnLogin = findViewById(R.id.btnLogin);
         btnSignup = findViewById(R.id.btnSignup);
+        btnBack = findViewById(R.id.btnBack);
         userVM = new ViewModelProvider(this).get(UserViewModel.class);
-        user = new User();
     }
 }

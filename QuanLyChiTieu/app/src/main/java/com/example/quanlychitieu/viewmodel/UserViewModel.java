@@ -33,4 +33,12 @@ public class UserViewModel extends AndroidViewModel {
     public void deleteAll() {
         new Thread(() -> userDAO.deleteAllUsers()).start();
     }
+
+    public LiveData<String> signupCheck(String email) {
+        return userDAO.signupCheck(email);
+    }
+
+    public LiveData<User> login(String email, String pass) {
+        return userDAO.login(email,pass);
+    }
 }
