@@ -5,6 +5,9 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
+
+import com.example.quanlychitieu.util.DateConverter;
 
 import java.util.Date;
 
@@ -19,6 +22,7 @@ public class Transaction {
     @ColumnInfo(name = "amount")
     private int amount;
     @ColumnInfo(name = "date")
+    @TypeConverters(DateConverter.class)
     private Date date;
     @ColumnInfo(name = "description")
     private String description;

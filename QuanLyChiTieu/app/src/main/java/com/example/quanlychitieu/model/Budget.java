@@ -5,6 +5,9 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
+
+import com.example.quanlychitieu.util.DateConverter;
 
 import java.util.Date;
 
@@ -19,8 +22,10 @@ public class Budget {
     @ColumnInfo(name = "amount")
     private int amount;
     @ColumnInfo(name = "start_date")
+    @TypeConverters(DateConverter.class)
     private Date startdate;
     @ColumnInfo(name = "end_date")
+    @TypeConverters(DateConverter.class)
     private Date enddate;
     @ColumnInfo(name = "category_id")
     private int category_id;

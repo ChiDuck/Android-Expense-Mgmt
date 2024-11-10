@@ -1,5 +1,6 @@
 package com.example.quanlychitieu.dao;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -15,7 +16,7 @@ public interface BudgetDAO {
     @Query("SELECT * FROM budget WHERE budget_id = :id")
     Budget getBudgetById(int id);
     @Query("SELECT * FROM budget")
-    List<Budget> getALLBudget();
+    LiveData<List<Budget>> getALLBudgets();
     @Insert
     void insertBudget(Budget... budgets);
     @Delete

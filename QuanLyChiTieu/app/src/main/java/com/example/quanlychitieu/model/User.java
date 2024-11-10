@@ -4,11 +4,15 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
 
+import com.example.quanlychitieu.util.DateConverter;
+
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity(tableName = "user")
-public class User {
+public class User implements Serializable {
     @NonNull
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "user_id")
@@ -20,8 +24,10 @@ public class User {
     @ColumnInfo(name = "password_hash")
     private String password;
     @ColumnInfo(name = "created_at")
+    @TypeConverters(DateConverter.class)
     private Date created_at;
     @ColumnInfo(name = "last_login")
+    @TypeConverters(DateConverter.class)
     private Date last_login;
 
     public User() {
@@ -81,5 +87,13 @@ public class User {
 
     public void setLast_login(Date last_login) {
         this.last_login = last_login;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

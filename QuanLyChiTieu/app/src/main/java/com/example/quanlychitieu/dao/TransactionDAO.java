@@ -1,5 +1,6 @@
 package com.example.quanlychitieu.dao;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -13,13 +14,13 @@ import java.util.List;
 @Dao
 public interface TransactionDAO {
     @Query("SELECT * FROM `transaction` WHERE transaction_id= :id")
-    Transaction getTransById(int id);
+    Transaction getTranById(int id);
     @Query("SELECT * FROM `transaction`")
-    List<Transaction> getALLTrans();
+    LiveData<List<Transaction>> getALLTrans();
     @Insert
-    void insertTrans(Transaction... transs);
+    void insertTran(Transaction... trans);
     @Delete
-    void deleteTrans(Transaction trans);
+    void deleteTran(Transaction tran);
     @Update
-    void updateTrans(Transaction... transs);
+    void updateTran(Transaction... trans);
 }
