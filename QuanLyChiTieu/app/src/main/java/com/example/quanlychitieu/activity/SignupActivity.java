@@ -1,6 +1,8 @@
 package com.example.quanlychitieu.activity;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -41,7 +43,18 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     private void addEvents() {
+
+
         btnSignup.setOnClickListener(view -> {
+
+//            btnSignup.setEnabled(false);
+//            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    btnSignup.setEnabled(true);
+//                }
+//            }, 2000);
+
             String name = txtName.getText().toString();
             String email = txtEmail.getText().toString();
             String pass = txtPasswd.getText().toString();

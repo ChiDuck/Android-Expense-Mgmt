@@ -28,15 +28,12 @@ public class UserAdapter extends ArrayAdapter<User> {
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = this.context.getLayoutInflater();
         View item = inflater.inflate(this.res, null);
-//        convertView = LayoutInflater.from(context).inflate(R.layout.item_user, parent, false);
 
         TextView ten = item.findViewById(R.id.txtten);
-        // Get the TextViews from the layout
         User user = this.obj.get(position);
         if (user != null) {
             ten.setText(user.getName());
         }
-
         return item;
     }
 

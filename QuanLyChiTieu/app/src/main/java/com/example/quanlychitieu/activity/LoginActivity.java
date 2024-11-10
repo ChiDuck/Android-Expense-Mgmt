@@ -52,6 +52,7 @@ public class LoginActivity extends AppCompatActivity {
                     //  user.setLast_login(Calendar.getInstance().getTime());
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
+                    finish();
                 } else {
                     Toast.makeText(this, "Sai thông tin đăng nhập!", Toast.LENGTH_SHORT).show();
                 }
