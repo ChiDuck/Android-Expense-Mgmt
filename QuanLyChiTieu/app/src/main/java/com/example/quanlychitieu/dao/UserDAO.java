@@ -14,7 +14,7 @@ import java.util.List;
 @Dao
 public interface UserDAO {
     @Query("SELECT * FROM user WHERE user_id = :id")
-    User getUserById(int id);
+    LiveData<User> getUserById(int id);
     @Query("SELECT * FROM user")
     LiveData<List<User>> getALLUsers();
     @Insert
@@ -27,6 +27,6 @@ public interface UserDAO {
     void deleteAllUsers();
     @Query("SELECT * FROM user WHERE email = :email AND password_hash = :pass LIMIT 1")
     LiveData<User> login(String email, String pass);
-    @Query("SELECT email FROM user WHERE email = :email LIMIT 1")
-    LiveData<String> signupCheck(String email);
+    @Query("SELECT * FROM user WHERE email = :email LIMIT 1")
+    LiveData<User> signupCheck(String email);
 }

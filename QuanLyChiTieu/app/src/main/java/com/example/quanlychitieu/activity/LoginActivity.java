@@ -25,7 +25,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText txtEmail, txtPasswd;
     Button btnLogin, btnSignup;
     UserViewModel userVM;
-    User user;
+    Observer<User> observer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,24 +39,29 @@ public class LoginActivity extends AppCompatActivity {
         });
         addControls();
         addEvents();
+        loginObserve();
+    }
+
+    private void loginObserve() {
+        observer = user -> {
+            if (user != null) {
+                // user.setLast_login(Calendar.getInstance().getTime());
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                intent.putExtra("user_id", user);
+                startActivity(intent);
+                finish();
+            } else {
+                Toast.makeText(this, "Sai thông tin đăng nhập!", Toast.LENGTH_SHORT).show();
+            }
+        };
     }
 
     private void addEvents() {
         btnLogin.setOnClickListener(view -> {
             String email = txtEmail.getText().toString();
             String pass = txtPasswd.getText().toString();
-
-            userVM.login(email, pass).observe(this, u -> {
-                if (u != null) {
-                    user = u;
-                    //  user.setLast_login(Calendar.getInstance().getTime());
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
-                } else {
-                    Toast.makeText(this, "Sai thông tin đăng nhập!", Toast.LENGTH_SHORT).show();
-                }
-            });
+           // userVM.login(email,pass).removeObserver(observer);
+            userVM.login(email,pass).observe(this,observer);
         });
         btnSignup.setOnClickListener(view -> {
             Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
@@ -70,6 +75,6 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLogin);
         btnSignup = findViewById(R.id.btnSignup);
         userVM = new ViewModelProvider(this).get(UserViewModel.class);
-        user = new User();
+        userVM.deleteAll();
     }
 }

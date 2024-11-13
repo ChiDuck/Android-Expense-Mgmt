@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.quanlychitieu.R;
@@ -27,6 +28,9 @@ public class SignupActivity extends AppCompatActivity {
     EditText txtName,txtEmail, txtPasswd;
     Button btnSignup, btnBack;
     UserViewModel userVM;
+    Observer<User> observer;
+    User user;
+    boolean flag = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,37 +44,38 @@ public class SignupActivity extends AppCompatActivity {
         });
         addControls();
         addEvents();
+        signupObserve();
+    }
+
+    private void signupObserve() {
+        observer = u -> {
+            if (u == null) {
+                userVM.insert(user);
+                flag = false;
+                finish();
+            } else if (flag) Toast.makeText(this, "Email đã có tài khoản!", Toast.LENGTH_SHORT).show();
+        };
     }
 
     private void addEvents() {
-
-
         btnSignup.setOnClickListener(view -> {
-
-//            btnSignup.setEnabled(false);
-//            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//                    btnSignup.setEnabled(true);
-//                }
-//            }, 2000);
-
+    //        btnSignup.setEnabled(false);
+    //        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+    //            @Override
+    //            public void run() {
+    //                btnSignup.setEnabled(true);
+    //            }
+    //        }, 2000);
             String name = txtName.getText().toString();
             String email = txtEmail.getText().toString();
             String pass = txtPasswd.getText().toString();
             Date create = Calendar.getInstance().getTime();
 
-            userVM.signupCheck(email).observe(this, e -> {
-                if (e == null) {
-                    if (!email.isEmpty() && !name.isEmpty() && !pass.isEmpty()) {
-                        User user = new User(name, email, pass, create, null);
-                        userVM.insert(user);
-                        finish();
-                    } else Toast.makeText(this, "Vui lòng điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(this, "Email đã có tài khoản!", Toast.LENGTH_SHORT).show();
-                }
-            });
+            if (!email.isEmpty() && !name.isEmpty() && !pass.isEmpty()) {
+                user = new User(name, email, pass, create, null);
+                userVM.signupCheck(email).removeObserver(observer);
+                userVM.signupCheck(email).observe(this, observer);
+            } else Toast.makeText(this, "Vui lòng điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
         });
 
         btnBack.setOnClickListener(view -> {
@@ -85,5 +90,6 @@ public class SignupActivity extends AppCompatActivity {
         btnSignup = findViewById(R.id.btnSignup);
         btnBack = findViewById(R.id.btnBack);
         userVM = new ViewModelProvider(this).get(UserViewModel.class);
+        user = new User();
     }
 }

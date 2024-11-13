@@ -26,6 +26,10 @@ public class UserViewModel extends AndroidViewModel {
         return allUsers;
     }
 
+    public LiveData<User> getUserById(int id) {
+        return userDAO.getUserById(id);
+    }
+
     public void insert(User user) {
         new Thread(() -> userDAO.insertUser(user)).start();
     }
@@ -34,7 +38,7 @@ public class UserViewModel extends AndroidViewModel {
         new Thread(() -> userDAO.deleteAllUsers()).start();
     }
 
-    public LiveData<String> signupCheck(String email) {
+    public LiveData<User> signupCheck(String email) {
         return userDAO.signupCheck(email);
     }
 

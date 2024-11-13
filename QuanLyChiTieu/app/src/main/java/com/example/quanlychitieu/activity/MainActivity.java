@@ -45,8 +45,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addEvents() {
+        Intent preIntent = getIntent();
+        int user_id = preIntent.getIntExtra("user_id", 0);
         btnCat.setOnClickListener(view -> {
-            Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
+            Intent intent = new Intent(MainActivity.this, CategoryActivity.class);
             startActivity(intent);
         });
     }

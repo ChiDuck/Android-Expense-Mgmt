@@ -9,11 +9,12 @@ import androidx.room.TypeConverters;
 
 import com.example.quanlychitieu.util.DateConverter;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity(tableName ="notification",
         foreignKeys = @ForeignKey(entity = User.class,parentColumns = "user_id", childColumns = "user_id"))
-public class Notification {
+public class Notification implements Serializable {
     @NonNull
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "notification_id")

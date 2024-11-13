@@ -13,11 +13,14 @@
         android:theme="@style/Theme.QuanLyChiTieu"
         tools:targetApi="31">
         <activity
-            android:name=".activity.DashboardActivity"
-            android:parentActivityName=".activity.MainActivity"
-            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
-            android:label="Danh mục"
+            android:name=".activity.CategoryDetailActivity"
             android:exported="false" />
+        <activity
+            android:name=".activity.CategoryActivity"
+            android:exported="false"
+            android:label="Danh mục"
+            android:parentActivityName=".activity.MainActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar" />
         <activity
             android:name=".activity.SignupActivity"
             android:exported="false" />

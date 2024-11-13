@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
@@ -11,6 +12,7 @@ import androidx.annotation.NonNull;
 
 import com.example.quanlychitieu.R;
 import com.example.quanlychitieu.model.Category;
+import com.example.quanlychitieu.model.User;
 
 import java.util.List;
 
@@ -26,7 +28,7 @@ public class CategoryAdapter extends ArrayAdapter<Category> {
         this.objects = objects;
     }
 
-    public View getView(int postion) {
+    public View getView(int postion, View convertView, ViewGroup parent) {
         LayoutInflater inflater = this.context.getLayoutInflater();
         View item = inflater.inflate(this.resource, null);
 
@@ -35,10 +37,15 @@ public class CategoryAdapter extends ArrayAdapter<Category> {
 
         Category cat = this.objects.get(postion);
         txtName.setText(cat.getName());
-        boolean type = cat.isType();
-        if (type) txtType.setText("Thu nhập");
+        if (cat.isType()) txtType.setText("Thu nhập");
         else txtType.setText("Chi tiêu");
 
         return item;
+    }
+
+    public void setCats(List<Category> cats) {
+        this.objects.clear();
+        this.objects.addAll(cats);
+        notifyDataSetChanged();
     }
 }

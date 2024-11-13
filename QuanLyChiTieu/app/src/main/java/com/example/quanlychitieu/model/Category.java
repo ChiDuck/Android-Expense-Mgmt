@@ -1,14 +1,17 @@
 package com.example.quanlychitieu.model;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity(tableName = "category",
         foreignKeys = @ForeignKey(entity = User.class, parentColumns = "user_id", childColumns = "user_id"))
-public class Category {
+public class Category implements Serializable {
     @NonNull
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "category_id")
@@ -17,6 +20,7 @@ public class Category {
     private String name;
     @ColumnInfo(name = "category_type")
     private boolean type;
+    @Nullable
     @ColumnInfo(name = "user_id")
     private int user_id;
 
