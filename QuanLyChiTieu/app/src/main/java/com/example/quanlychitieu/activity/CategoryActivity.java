@@ -57,8 +57,11 @@ public class CategoryActivity extends AppCompatActivity {
     }
 
     private void addEvents() {
+        Intent preIntent = getIntent();
+        int user_id = preIntent.getIntExtra("user_id", 0);
         btnAdd.setOnClickListener(view -> {
             Intent intent = new Intent(CategoryActivity.this,CategoryDetailActivity.class);
+            intent.putExtra("user_id",user_id);
             startActivityForResult(intent, 1);
         });
     }

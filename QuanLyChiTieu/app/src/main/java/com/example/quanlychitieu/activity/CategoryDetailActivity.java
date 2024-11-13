@@ -46,10 +46,10 @@ public class CategoryDetailActivity extends AppCompatActivity {
         btnSave.setOnClickListener(view -> {
             String name = txtName.getText().toString();
             boolean type = radEarn.isChecked() ? true : false;
-            Category cat = new Category();
-            cat.setName(name);
-            cat.setType(type);
+            int id = 0;
             Intent intent = getIntent();
+            if (intent.hasExtra("user_id")) id = intent.getIntExtra("user_id",0);
+            Category cat = new Category(name,type,id);
             intent.putExtra("cat",cat);
             setResult(2,intent);
             finish();

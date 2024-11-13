@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         int user_id = preIntent.getIntExtra("user_id", 0);
         btnCat.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, CategoryActivity.class);
+            intent.putExtra("user_id", user_id);
             startActivity(intent);
         });
     }

@@ -47,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
             if (user != null) {
                 // user.setLast_login(Calendar.getInstance().getTime());
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                intent.putExtra("user_id", user);
+                intent.putExtra("user_id", user.getId());
                 startActivity(intent);
                 finish();
             } else {
@@ -60,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(view -> {
             String email = txtEmail.getText().toString();
             String pass = txtPasswd.getText().toString();
-           // userVM.login(email,pass).removeObserver(observer);
+            userVM.login(email,pass).removeObserver(observer);
             userVM.login(email,pass).observe(this,observer);
         });
         btnSignup.setOnClickListener(view -> {
@@ -75,6 +75,6 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLogin);
         btnSignup = findViewById(R.id.btnSignup);
         userVM = new ViewModelProvider(this).get(UserViewModel.class);
-        userVM.deleteAll();
+       // userVM.deleteAll();
     }
 }
