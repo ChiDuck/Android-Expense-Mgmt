@@ -8,12 +8,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.CategoryDetailActivity">
+
     <ImageButton
         android:id="@+id/ibtnBack"
-        android:src="@drawable/ic_arrow"
-        android:background="?attr/selectableItemBackgroundBorderless"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_arrow" />
     <TextView
         android:id="@+id/txtTitle"
         android:layout_marginTop="200dp"

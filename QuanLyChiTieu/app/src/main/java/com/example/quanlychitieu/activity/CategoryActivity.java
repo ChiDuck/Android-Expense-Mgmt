@@ -3,6 +3,7 @@ package com.example.quanlychitieu.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
@@ -17,18 +18,20 @@ import com.example.quanlychitieu.R;
 import com.example.quanlychitieu.adapter.CategoryAdapter;
 import com.example.quanlychitieu.model.Category;
 import com.example.quanlychitieu.viewmodel.CategoryViewModel;
+import com.example.quanlychitieu.viewmodel.TransactionViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
 public class CategoryActivity extends AppCompatActivity {
 
-    Button btnAdd;
+    ImageButton ibtnBack;
     ListView listCats;
-    FloatingActionButton fabAddTran;
+    FloatingActionButton fabAddCat;
     ArrayList<Category> array;
     CategoryAdapter adapter;
     CategoryViewModel catVM;
+    TransactionViewModel tranVM;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +43,9 @@ public class CategoryActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
         addControls();
-        addEvents();
         dataObserve();
+        addEvents();
     }
 
     private void dataObserve() {
@@ -59,20 +59,25 @@ public class CategoryActivity extends AppCompatActivity {
     private void addEvents() {
         Intent preIntent = getIntent();
         int user_id = preIntent.getIntExtra("user_id", 0);
-        btnAdd.setOnClickListener(view -> {
+        fabAddCat.setOnClickListener(view -> {
             Intent intent = new Intent(CategoryActivity.this,CategoryDetailActivity.class);
             intent.putExtra("user_id",user_id);
             startActivityForResult(intent, 1);
         });
+
+        ibtnBack.setOnClickListener(view -> {
+            finish();
+        });
     }
 
     private void addControls() {
-        btnAdd = findViewById(R.id.btnAdd);
+        ibtnBack = findViewById(R.id.ibtnBack);
         listCats = findViewById(R.id.listCats);
-        fabAddTran = findViewById(R.id.fabAddTran);
+        fabAddCat = findViewById(R.id.fabAddCat);
         array = new ArrayList<>();
         catVM = new ViewModelProvider(this).get(CategoryViewModel.class); //initialize before adapter
-        adapter = new CategoryAdapter(this,R.layout.cats_item,array,catVM);
+        tranVM = new ViewModelProvider(this).get(TransactionViewModel.class); //initialize before adapter
+        adapter = new CategoryAdapter(this,R.layout.cats_item,array,catVM,tranVM);
         listCats.setAdapter(adapter);
     }
 

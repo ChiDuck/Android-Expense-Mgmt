@@ -158,15 +158,4 @@
                 android:layout_height="wrap_content"/>
         </LinearLayout>
     </LinearLayout>
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabAddTran"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="20dp"
-        android:layout_marginRight="10dp"
-        android:backgroundTint="#ABABE2"
-        android:contentDescription="add"
-        android:src="@drawable/ic_plus" />
 </RelativeLayout>

@@ -26,11 +26,21 @@ public class TransactionViewModel extends AndroidViewModel {
         return allTrans;
     }
 
+    public LiveData<List<Transaction>> getAllTransByCat(int id) {
+        return tranDAO.getALLTransByCat(id);
+    }
+
     public void insert(Transaction tran) {
         new Thread(() -> tranDAO.insertTran(tran)).start();
     }
 
     public void delete(Transaction tran) {
         new Thread(() -> tranDAO.deleteTran(tran)).start();
+    }
+
+    public void deleteTransById(int id) throws InterruptedException {
+        Thread thread = new Thread(() -> tranDAO.deleteTransById(id));
+        thread.start();
+        thread.join();
     }
 }

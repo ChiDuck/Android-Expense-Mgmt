@@ -13,14 +13,16 @@ import java.util.List;
 
 @Dao
 public interface TransactionDAO {
-    @Query("SELECT * FROM `transaction` WHERE transaction_id= :id")
+    @Query("SELECT * FROM `transaction` WHERE transaction_id = :id")
     Transaction getTranById(int id);
+    @Query("SELECT * FROM `transaction` WHERE category_id = :id")
+    LiveData<List<Transaction>> getALLTransByCat(int id);
     @Query("SELECT * FROM `transaction`")
     LiveData<List<Transaction>> getALLTrans();
     @Insert
     void insertTran(Transaction... trans);
     @Delete
     void deleteTran(Transaction tran);
-    @Update
-    void updateTran(Transaction... trans);
+    @Query("DELETE FROM 'transaction' WHERE category_id = :id")
+    void deleteTransById(int id);
 }
