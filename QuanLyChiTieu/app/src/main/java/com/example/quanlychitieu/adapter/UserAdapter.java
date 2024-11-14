@@ -29,11 +29,11 @@ public class UserAdapter extends ArrayAdapter<User> {
         LayoutInflater inflater = this.context.getLayoutInflater();
         View item = inflater.inflate(this.res, null);
 
-        TextView ten = item.findViewById(R.id.txtten);
-        User user = this.obj.get(position);
-        if (user != null) {
-            ten.setText(user.getName());
-        }
+//        TextView ten = item.findViewById(R.id.txtten);
+//        User user = this.obj.get(position);
+//        if (user != null) {
+//            ten.setText(user.getName());
+//        }
         return item;
     }
 

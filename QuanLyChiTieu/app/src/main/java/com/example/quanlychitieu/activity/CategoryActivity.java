@@ -71,9 +71,9 @@ public class CategoryActivity extends AppCompatActivity {
         listCats = findViewById(R.id.listCats);
         fabAddTran = findViewById(R.id.fabAddTran);
         array = new ArrayList<>();
-        adapter = new CategoryAdapter(this,R.layout.cats_item,array);
+        catVM = new ViewModelProvider(this).get(CategoryViewModel.class); //initialize before adapter
+        adapter = new CategoryAdapter(this,R.layout.cats_item,array,catVM);
         listCats.setAdapter(adapter);
-        catVM = new ViewModelProvider(this).get(CategoryViewModel.class);
     }
 
     @Override
