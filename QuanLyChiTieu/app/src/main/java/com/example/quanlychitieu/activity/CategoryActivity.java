@@ -84,5 +84,9 @@ public class CategoryActivity extends AppCompatActivity {
             Category cat = (Category) data.getSerializableExtra("cat");
             catVM.insert(cat);
         }
+        if (requestCode == 3 && resultCode == 2) {
+            Category cat = (Category) data.getSerializableExtra("cat");
+            catVM.update(cat);
+        }
     }
 }

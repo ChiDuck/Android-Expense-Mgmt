@@ -33,4 +33,8 @@ public class CategoryViewModel extends AndroidViewModel {
     public void delete(Category category) {
         new Thread(() -> catDAO.deleteCat(category)).start();
     }
+
+    public void update(Category category) {
+        new Thread(() -> catDAO.updateCat(category)).start();
+    }
 }

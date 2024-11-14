@@ -25,8 +25,8 @@ public class CategoryDetailActivity extends AppCompatActivity {
     TextView txtTitle;
     EditText txtName;
     RadioButton radEarn, radSpend;
-
-    UserViewModel userVM;
+    Category cat;
+    boolean add;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,20 +39,39 @@ public class CategoryDetailActivity extends AppCompatActivity {
             return insets;
         });
         addControls();
+        getIntentData();
         addEvents();
     }
 
-    private void addEvents() {
-        btnSave.setOnClickListener(view -> {
-            Intent intent = getIntent();
-            String name = txtName.getText().toString();
-            boolean type = radEarn.isChecked() ? true : false;
-            int id = intent.getIntExtra("user_id",0);
+    private void getIntentData() {
+        Intent intent = getIntent();
+        if (intent.hasExtra("oldcat")) {
+            cat = (Category) intent.getSerializableExtra("oldcat");
+            txtTitle.setText("Sửa danh mục");
+            txtName.setText(cat.getName());
+            if (cat.isType()) radEarn.setChecked(true);
+            else radSpend.setChecked(true);
+            radEarn.setEnabled(false);
+            radSpend.setEnabled(false);
+            add = false;
+        }
+    }
 
-            Category cat = new Category(name,type,id);
-            intent.putExtra("cat",cat);
-            setResult(2,intent);
-            finish();
+    private void addEvents() {
+
+        btnSave.setOnClickListener(view -> {
+                String name = txtName.getText().toString();
+                boolean type = radEarn.isChecked() ? true : false;
+
+                Intent intent = getIntent();
+                if (!add) cat.setName(name);
+                else {
+                    int id = intent.getIntExtra("user_id", 0);
+                    cat = new Category(name,type,id);
+                }
+                intent.putExtra("cat", cat);
+                setResult(2, intent);
+                finish();
         });
 
         ibtnBack.setOnClickListener(view -> {
@@ -67,5 +86,7 @@ public class CategoryDetailActivity extends AppCompatActivity {
         txtName = findViewById(R.id.txtName);
         radEarn = findViewById(R.id.radEarn);
         radSpend = findViewById(R.id.radSpend);
+        cat = new Category();
+        add = true;
     }
 }

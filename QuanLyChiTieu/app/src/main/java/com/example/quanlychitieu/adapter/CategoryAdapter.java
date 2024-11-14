@@ -1,6 +1,9 @@
 package com.example.quanlychitieu.adapter;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.example.quanlychitieu.R;
+import com.example.quanlychitieu.activity.CategoryDetailActivity;
 import com.example.quanlychitieu.model.Category;
 import com.example.quanlychitieu.viewmodel.CategoryViewModel;
 import com.example.quanlychitieu.viewmodel.UserViewModel;
@@ -46,10 +50,17 @@ public class CategoryAdapter extends ArrayAdapter<Category> {
         else txtType.setText("Chi tiêu");
 
         ibtnDelete.setOnClickListener(view -> {
-            catVM.delete(cat);
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setTitle("Xóa");
+            builder.setMessage("Bạn có chắc chắn mốn xóa danh mục này?");
+            builder.setPositiveButton("Có", (dialogInterface, i) -> catVM.delete(cat));
+            builder.setNegativeButton("Không", null);
+            builder.show();
         });
         ibtnEdit.setOnClickListener(view -> {
-
+            Intent intent = new Intent(context, CategoryDetailActivity.class);
+            intent.putExtra("oldcat", cat);
+            context.startActivityForResult(intent,3);
         });
 
         return item;
