@@ -26,6 +26,10 @@ public class CategoryViewModel extends AndroidViewModel {
         return allCats;
     }
 
+    public LiveData<Category> getCatById(int id) {
+        return catDAO.getCatById(id);
+    }
+
     public void insert(Category category) {
         new Thread(() -> catDAO.insertCat(category)).start();
     }

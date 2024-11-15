@@ -14,7 +14,7 @@ import java.util.List;
 @Dao
 public interface CategoryDAO {
     @Query("SELECT * FROM category WHERE category_id= :id")
-    Category getCatById(int id);
+    LiveData<Category> getCatById(int id);
     @Query("SELECT * FROM category")
     LiveData<List<Category>> getALLCats();
     @Insert

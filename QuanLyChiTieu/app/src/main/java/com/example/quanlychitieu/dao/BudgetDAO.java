@@ -32,5 +32,5 @@ public interface BudgetDAO {
     void updateBalance(int id, int newbalance);
 
     @Query("DELETE FROM budget WHERE category_id = :id")
-    public void deleteById(int id);
+    void deleteById(int id);
 }

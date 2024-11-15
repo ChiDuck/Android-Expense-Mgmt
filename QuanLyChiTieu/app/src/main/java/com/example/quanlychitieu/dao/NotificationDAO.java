@@ -23,4 +23,7 @@ public interface NotificationDAO {
     void deleteNotif(Notification notif);
     @Update
     void updateNotif(Notification... notifs);
+
+    @Query("SELECT * FROM notification WHERE user_id= :id")
+    LiveData<List<Notification>> getNotifFromUser(int id);
 }

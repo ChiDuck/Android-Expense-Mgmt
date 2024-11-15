@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -21,9 +22,12 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.quanlychitieu.R;
 import com.example.quanlychitieu.adapter.TransactionAdapter;
 import com.example.quanlychitieu.model.Budget;
+import com.example.quanlychitieu.model.Category;
+import com.example.quanlychitieu.model.Notification;
 import com.example.quanlychitieu.model.Transaction;
 import com.example.quanlychitieu.util.DateConverter;
 import com.example.quanlychitieu.viewmodel.BudgetViewModel;
+import com.example.quanlychitieu.viewmodel.NotificationViewModel;
 import com.example.quanlychitieu.viewmodel.TransactionViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -33,6 +37,7 @@ import java.util.Date;
 
 public class TransactionActivity extends AppCompatActivity {
 
+    LinearLayout layout;
     TextView txtAmount, txtAmountLeft, txtFullDate;
     ImageButton ibtnBack;
     FloatingActionButton fabAddTran;
@@ -41,8 +46,10 @@ public class TransactionActivity extends AppCompatActivity {
     TransactionAdapter adapter;
     TransactionViewModel tranVM;
     BudgetViewModel budVM;
+    NotificationViewModel notifVM;
     Calendar calendar;
     Budget budget;
+    Category category;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,28 +67,28 @@ public class TransactionActivity extends AppCompatActivity {
     }
 
     private void dataObserve() {
-        int cat_id = getIntent().getIntExtra("cat_id", 0);
-        tranVM.getAllTransByCat(cat_id).observe(this, trans -> {
+        tranVM.getAllTransByCat(category.getId()).observe(this, trans -> {
             if (trans != null) {
                 adapter.setTrans(trans);
             }
         });
-        budVM.getBudgetById(cat_id).observe(this, bud -> {
-            if (bud != null) {
-                budget = bud;
-                txtAmount.setText(budget.getAmount()+" VND");
-                txtAmountLeft.setText(bud.getBalance()+" VND");
-                txtFullDate.setText(String.format("%s - %s", DateConverter.formatDate(budget.getStartdate()), DateConverter.formatDate(budget.getEnddate())));
-            }
-        });
+        if (!category.isType()) {
+            budVM.getBudgetById(category.getId()).observe(this, bud -> {
+                if (bud != null) {
+                    budget = bud;
+                    txtAmount.setText(budget.getAmount() + " VND");
+                    txtAmountLeft.setText(bud.getBalance() + " VND");
+                    txtFullDate.setText(String.format("%s - %s", DateConverter.formatDate(budget.getStartdate()), DateConverter.formatDate(budget.getEnddate())));
+                }
+            });
+        } else layout.setVisibility(View.GONE);
     }
 
     private void addEvents() {
         Intent intent = getIntent();
         int user_id = intent.getIntExtra("user_id", 0);
-        int cat_id = intent.getIntExtra("cat_id", 0);
         fabAddTran.setOnClickListener(view -> {
-            showDialog(user_id, cat_id);
+            showDialog(user_id, category.getId());
         });
 
         ibtnBack.setOnClickListener(view -> {
@@ -116,7 +123,19 @@ public class TransactionActivity extends AppCompatActivity {
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
+                int newBalance = budget.getBalance() - amt;
                 budVM.updateBalance(cid,budget.getBalance() - amt);
+                if (newBalance < 0) {
+                    String mes = "Số dư ngân sách trong danh mục " + category.getName() + " đã cạn kiệt!";
+                    Notification notif = new Notification(mes, date, false, uid);
+                    notifVM.insert(notif);
+                } else
+                if (newBalance <= budget.getBalance()/100 * 10 || newBalance < 5000)
+                {
+                    String mes = "Số dư ngân sách trong danh mục " + category.getName() + " gần cạn kiệt. Hãy cân nhắc chi tiêu trong tương lai.";
+                    Notification notif = new Notification(mes, date, false, uid);
+                    notifVM.insert(notif);
+                }
             }
         });
         builder.setNegativeButton("Trở lại", null);
@@ -125,6 +144,7 @@ public class TransactionActivity extends AppCompatActivity {
     }
 
     private void addControls() {
+        layout = findViewById(R.id.linearLayout2);
         txtAmount = findViewById(R.id.txtAmount);
         txtAmountLeft = findViewById(R.id.txtAmountLeft);
         txtFullDate = findViewById(R.id.txtFullDate);
@@ -134,9 +154,11 @@ public class TransactionActivity extends AppCompatActivity {
         array = new ArrayList<>();
         tranVM = new ViewModelProvider(this).get(TransactionViewModel.class);
         budVM = new ViewModelProvider(this).get(BudgetViewModel.class); //initialize before adapter
+        notifVM = new ViewModelProvider(this).get(NotificationViewModel.class); //initialize before adapter
         adapter = new TransactionAdapter(this,R.layout.trans_item,array,tranVM);
         listTrans.setAdapter(adapter);
         calendar = Calendar.getInstance();
         budget = new Budget();
+        category = (Category) getIntent().getSerializableExtra("cat");
     }
 }

@@ -42,7 +42,7 @@ public class TransactionAdapter extends ArrayAdapter<Transaction> {
         ImageButton ibtnDelete = item.findViewById(R.id.ibtnDelete);
 
         Transaction tran = this.objects.get(position);
-        txtAmount.setText(tran.getAmount()+"");
+        txtAmount.setText(tran.getAmount()+" VND");
         txtDate.setText(DateConverter.formatDate(tran.getDate()));
         txtDes.setText(tran.getDescription());
 

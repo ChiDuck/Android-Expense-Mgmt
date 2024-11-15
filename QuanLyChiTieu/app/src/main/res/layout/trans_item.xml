@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <LinearLayout
+        android:background="#ECF6E7"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -18,17 +19,18 @@
             android:text="Ngày giao dịch: "
             android:layout_gravity="center_vertical"
             android:gravity="end"
-            android:layout_weight="1"
+            android:layout_weight="1.4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <TextView
             android:id="@+id/txtDate"
             android:layout_gravity="center_vertical"
-            android:layout_weight="1.3"
+            android:layout_weight="1.5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </LinearLayout>
     <LinearLayout
+        android:background="#ECF6E7"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">

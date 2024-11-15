@@ -113,7 +113,7 @@ public class CategoryAdapter extends ArrayAdapter<Category> {
         item.setOnClickListener(view -> {
             Intent intent = new Intent(context, TransactionActivity.class);
             int user_id = context.getIntent().getIntExtra("user_id", 0);
-            intent.putExtra("cat_id",cat.getId());
+            intent.putExtra("cat",cat);
             intent.putExtra("user_id",user_id);
             context.startActivity(intent);
         });

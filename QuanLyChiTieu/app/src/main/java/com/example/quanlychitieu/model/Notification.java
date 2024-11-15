@@ -25,14 +25,19 @@ public class Notification implements Serializable {
     @TypeConverters(DateConverter.class)
     private Date date;
     @ColumnInfo(name = "status")
-    private String status;
+    private boolean status;
     @ColumnInfo(name = "user_id")
     private int user_id;
 
     public Notification() {
     }
 
-    public Notification(String message, Date date, String status, int user_id) {
+    @Override
+    public String toString() {
+        return message + " - " + DateConverter.formatDate(date);
+    }
+
+    public Notification(String message, Date date, boolean status, int user_id) {
         this.message = message;
         this.date = date;
         this.status = status;
@@ -63,11 +68,11 @@ public class Notification implements Serializable {
         this.date = date;
     }
 
-    public String getStatus() {
+    public boolean isStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(boolean status) {
         this.status = status;
     }
 
