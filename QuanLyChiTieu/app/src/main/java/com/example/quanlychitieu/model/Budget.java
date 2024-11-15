@@ -22,6 +22,8 @@ public class Budget implements Serializable {
     private int id;
     @ColumnInfo(name = "amount")
     private int amount;
+    @ColumnInfo(name = "balance")
+    private int balance;
     @ColumnInfo(name = "start_date")
     @TypeConverters(DateConverter.class)
     private Date startdate;
@@ -36,8 +38,9 @@ public class Budget implements Serializable {
     public Budget() {
     }
 
-    public Budget(int amount, Date startdate, Date enddate, int category_id, int user_id) {
+    public Budget(int amount, int balance, Date startdate, Date enddate, int category_id, int user_id) {
         this.amount = amount;
+        this.balance = balance;
         this.startdate = startdate;
         this.enddate = enddate;
         this.category_id = category_id;
@@ -58,6 +61,14 @@ public class Budget implements Serializable {
 
     public void setAmount(int amount) {
         this.amount = amount;
+    }
+
+    public int getBalance() {
+        return balance;
+    }
+
+    public void setBalance(int balance) {
+        this.balance = balance;
     }
 
     public Date getStartdate() {

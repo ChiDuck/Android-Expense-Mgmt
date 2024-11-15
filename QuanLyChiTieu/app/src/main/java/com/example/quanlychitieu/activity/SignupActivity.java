@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.quanlychitieu.R;
 import com.example.quanlychitieu.model.User;
+import com.example.quanlychitieu.util.PasswordEncryption;
 import com.example.quanlychitieu.viewmodel.UserViewModel;
 
 import java.text.SimpleDateFormat;
@@ -68,7 +69,7 @@ public class SignupActivity extends AppCompatActivity {
     //        }, 2000);
             String name = txtName.getText().toString();
             String email = txtEmail.getText().toString();
-            String pass = txtPasswd.getText().toString();
+            String pass = PasswordEncryption.hashPassword(txtPasswd.getText().toString());
             Date create = Calendar.getInstance().getTime();
 
             if (!email.isEmpty() && !name.isEmpty() && !pass.isEmpty()) {

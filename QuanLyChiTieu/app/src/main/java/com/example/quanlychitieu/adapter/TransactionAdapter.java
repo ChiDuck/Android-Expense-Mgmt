@@ -44,7 +44,7 @@ public class TransactionAdapter extends ArrayAdapter<Transaction> {
         Transaction tran = this.objects.get(position);
         txtAmount.setText(tran.getAmount()+"");
         txtDate.setText(DateConverter.formatDate(tran.getDate()));
-        txtDes.setText(tran.getDescription().toString());
+        txtDes.setText(tran.getDescription());
 
         ibtnDelete.setOnClickListener(view -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);

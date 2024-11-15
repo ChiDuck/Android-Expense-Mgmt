@@ -12,8 +12,8 @@ import com.example.quanlychitieu.util.AppDatabase;
 import java.util.List;
 
 public class UserViewModel extends AndroidViewModel {
-    private UserDAO userDAO;
-    private LiveData<List<User>> allUsers;
+    private final UserDAO userDAO;
+    private final LiveData<List<User>> allUsers;
 
     public UserViewModel(Application application) {
         super(application);

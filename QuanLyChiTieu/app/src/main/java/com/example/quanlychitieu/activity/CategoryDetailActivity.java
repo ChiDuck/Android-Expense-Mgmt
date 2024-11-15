@@ -61,7 +61,7 @@ public class CategoryDetailActivity extends AppCompatActivity {
 
         btnSave.setOnClickListener(view -> {
                 String name = txtName.getText().toString();
-                boolean type = radEarn.isChecked() ? true : false;
+                boolean type = radEarn.isChecked();
 
                 Intent intent = getIntent();
                 if (!add) cat.setName(name);

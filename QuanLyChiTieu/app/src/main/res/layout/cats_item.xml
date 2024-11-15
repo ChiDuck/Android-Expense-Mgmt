@@ -5,18 +5,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <LinearLayout
-        android:background="#E3E8EA"
+        android:background="#EAEAEA"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
         <TextView
             android:id="@+id/txtName"
-            android:layout_weight="1"
             android:textSize="25dp"
-            android:layout_marginLeft="20dp"
             android:layout_gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
+            <LinearLayout
+                android:id="@+id/layoutBudget"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="Ngân sách: "
+                    android:textSize="17dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/txtBudget"
+                    android:textSize="17dp"
+                    android:text="Chưa thiết lập"
+                    android:textStyle="italic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_weight="1.5"
@@ -36,17 +62,21 @@
                 android:orientation="horizontal">
 
             <ImageButton
+                android:id="@+id/ibtnBudget"
+                android:src="@drawable/ic_money"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <ImageButton
                 android:id="@+id/ibtnEdit"
                 android:src="@drawable/ic_edit"
                 android:layout_weight="1"
-                android:layout_marginHorizontal="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
             <ImageButton
                 android:id="@+id/ibtnDelete"
                 android:src="@drawable/ic_delete"
                 android:layout_weight="1"
-                android:layout_marginHorizontal="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
             </LinearLayout>

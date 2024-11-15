@@ -12,8 +12,8 @@ import com.example.quanlychitieu.util.AppDatabase;
 import java.util.List;
 
 public class NotificationViewModel extends AndroidViewModel {
-    private NotificationDAO notifDAO;
-    private LiveData<List<Notification>> allNotifs;
+    private final NotificationDAO notifDAO;
+    private final LiveData<List<Notification>> allNotifs;
     
     public NotificationViewModel(Application application) {
         super(application);

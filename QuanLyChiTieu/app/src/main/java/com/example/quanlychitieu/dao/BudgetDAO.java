@@ -13,14 +13,24 @@ import java.util.List;
 
 @Dao
 public interface BudgetDAO {
-    @Query("SELECT * FROM budget WHERE budget_id = :id")
-    Budget getBudgetById(int id);
     @Query("SELECT * FROM budget")
     LiveData<List<Budget>> getALLBudgets();
+
     @Insert
     void insertBudget(Budget... budgets);
+
     @Delete
     void deleteBudget(Budget budget);
+
     @Update
     void updateBudget(Budget... budgets);
+
+    @Query("SELECT * FROM budget WHERE category_id = :id")
+    LiveData<Budget> getBudgetByCategoryId(int id);
+
+    @Query("UPDATE budget SET balance = :newbalance WHERE category_id = :id")
+    void updateBalance(int id, int newbalance);
+
+    @Query("DELETE FROM budget WHERE category_id = :id")
+    public void deleteById(int id);
 }

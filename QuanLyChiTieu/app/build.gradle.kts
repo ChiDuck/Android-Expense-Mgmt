@@ -49,8 +49,4 @@ dependencies {
 
     implementation(libs.room.runtime)
     annotationProcessor(libs.room.compiler)
-
-    implementation("com.google.android.material:material:1.9.0")  // Use the latest version available if needed
-
-
 }

@@ -12,8 +12,8 @@ import com.example.quanlychitieu.util.AppDatabase;
 import java.util.List;
 
 public class CategoryViewModel extends AndroidViewModel {
-    private CategoryDAO catDAO;
-    private LiveData<List<Category>> allCats;
+    private final CategoryDAO catDAO;
+    private final LiveData<List<Category>> allCats;
 
     public CategoryViewModel(Application application) {
         super(application);

@@ -88,12 +88,4 @@ public class User implements Serializable {
     public void setLast_login(Date last_login) {
         this.last_login = last_login;
     }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
-    }
 }

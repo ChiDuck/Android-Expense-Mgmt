@@ -12,8 +12,8 @@ import com.example.quanlychitieu.util.AppDatabase;
 import java.util.List;
 
 public class TransactionViewModel extends AndroidViewModel {
-    private TransactionDAO tranDAO;
-    private LiveData<List<Transaction>> allTrans;
+    private final TransactionDAO tranDAO;
+    private final LiveData<List<Transaction>> allTrans;
 
     public TransactionViewModel(Application application) {
         super(application);
@@ -30,8 +30,10 @@ public class TransactionViewModel extends AndroidViewModel {
         return tranDAO.getALLTransByCat(id);
     }
 
-    public void insert(Transaction tran) {
-        new Thread(() -> tranDAO.insertTran(tran)).start();
+    public void insert(Transaction tran) throws InterruptedException {
+        Thread thread = new Thread(() -> tranDAO.insertTran(tran));
+        thread.start();
+        thread.join();
     }
 
     public void delete(Transaction tran) {

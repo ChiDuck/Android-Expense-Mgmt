@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.quanlychitieu.R;
 import com.example.quanlychitieu.model.User;
+import com.example.quanlychitieu.util.PasswordEncryption;
 import com.example.quanlychitieu.viewmodel.UserViewModel;
 
 import java.util.Calendar;
@@ -59,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
     private void addEvents() {
         btnLogin.setOnClickListener(view -> {
             String email = txtEmail.getText().toString();
-            String pass = txtPasswd.getText().toString();
+            String pass = PasswordEncryption.hashPassword(txtPasswd.getText().toString());
             userVM.login(email,pass).removeObserver(observer);
             userVM.login(email,pass).observe(this,observer);
         });

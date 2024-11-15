@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.quanlychitieu.R;
 import com.example.quanlychitieu.adapter.CategoryAdapter;
 import com.example.quanlychitieu.model.Category;
+import com.example.quanlychitieu.viewmodel.BudgetViewModel;
 import com.example.quanlychitieu.viewmodel.CategoryViewModel;
 import com.example.quanlychitieu.viewmodel.TransactionViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -32,6 +33,7 @@ public class CategoryActivity extends AppCompatActivity {
     CategoryAdapter adapter;
     CategoryViewModel catVM;
     TransactionViewModel tranVM;
+    BudgetViewModel budVM;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +79,8 @@ public class CategoryActivity extends AppCompatActivity {
         array = new ArrayList<>();
         catVM = new ViewModelProvider(this).get(CategoryViewModel.class); //initialize before adapter
         tranVM = new ViewModelProvider(this).get(TransactionViewModel.class); //initialize before adapter
-        adapter = new CategoryAdapter(this,R.layout.cats_item,array,catVM,tranVM);
+        budVM = new ViewModelProvider(this).get(BudgetViewModel.class); //initialize before adapter
+        adapter = new CategoryAdapter(this,R.layout.cats_item,array,catVM,tranVM,budVM);
         listCats.setAdapter(adapter);
     }
 
