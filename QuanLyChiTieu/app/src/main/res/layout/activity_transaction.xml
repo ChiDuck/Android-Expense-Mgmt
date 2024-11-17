@@ -20,14 +20,17 @@
         <ImageButton
             android:id="@+id/ibtnBack"
             android:layout_gravity="center_vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="back"
             android:src="@drawable/ic_arrow" />
 
         <TextView
-            android:textSize="20dp"
-            android:layout_marginLeft="10dp"
+            android:layout_gravity="center"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginStart="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Các giao dịch" />
@@ -35,7 +38,11 @@
 
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:background="#E4E4E4"
+        android:backgroundTint="#EAEAEA"
+        android:background="@drawable/round_item"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="5dp"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -44,6 +51,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
         <LinearLayout
+            android:gravity="top"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -52,13 +60,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Tổng ngân sách: "
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
             <TextView
                 android:id="@+id/txtAmount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="25dp"/>
+                android:textSize="25sp"/>
         </LinearLayout>
         <LinearLayout
             android:orientation="horizontal"
@@ -69,12 +77,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Số dư ngân sách: "
-                android:textSize="20dp"/>
+                android:textSize="20sp"/>
             <TextView
                 android:id="@+id/txtAmountLeft"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"/>
+                android:textSize="20sp"/>
         </LinearLayout>
         <LinearLayout
             android:orientation="horizontal"
@@ -85,12 +93,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Thời gian: "
-                android:textSize="20dp"/>
+                android:textSize="20sp"/>
             <TextView
                 android:id="@+id/txtFullDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"/>
+                android:textSize="20sp"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -109,6 +117,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
+        android:contentDescription="add"
         android:src="@drawable/ic_plus"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
