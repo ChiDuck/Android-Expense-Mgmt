@@ -87,13 +87,9 @@ public class TransactionActivity extends AppCompatActivity {
     private void addEvents() {
         Intent intent = getIntent();
         int user_id = intent.getIntExtra("user_id", 0);
-        fabAddTran.setOnClickListener(view -> {
-            showDialog(user_id, category.getId());
-        });
+        fabAddTran.setOnClickListener(view -> showDialog(user_id, category.getId()));
 
-        ibtnBack.setOnClickListener(view -> {
-            finish();
-        });
+        ibtnBack.setOnClickListener(view -> finish());
     }
 
     private void showDialog(int uid, int cid) {
@@ -105,37 +101,35 @@ public class TransactionActivity extends AppCompatActivity {
         ImageButton ibtnDate = view.findViewById(R.id.ibtnDate);
         EditText txtDes = view.findViewById(R.id.txtDescription);
 
-        ibtnDate.setOnClickListener(view1 -> {
-            DateConverter.dateProcessor(txtDate, calendar, this);
-        });
+        ibtnDate.setOnClickListener(view1 ->
+            DateConverter.dateProcessor(txtDate, calendar, this));
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setView(view);
-        builder.setPositiveButton("Thêm", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                int amt = Integer.parseInt(txtAmount.getText().toString());
-                Date date = calendar.getTime();
-                String des = txtDes.getText().toString();
-                Transaction tran = new Transaction(amt,date,des,cid,uid);
-                try {
-                    tranVM.insert(tran);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-                int newBalance = budget.getBalance() - amt;
-                budVM.updateBalance(cid,budget.getBalance() - amt);
-                if (newBalance < 0) {
-                    String mes = "Số dư ngân sách trong danh mục " + category.getName() + " đã cạn kiệt!";
-                    Notification notif = new Notification(mes, date, false, uid);
-                    notifVM.insert(notif);
-                } else
-                if (newBalance <= budget.getBalance()/100 * 10 || newBalance < 5000)
-                {
-                    String mes = "Số dư ngân sách trong danh mục " + category.getName() + " gần cạn kiệt. Hãy cân nhắc chi tiêu trong tương lai.";
-                    Notification notif = new Notification(mes, date, false, uid);
-                    notifVM.insert(notif);
-                }
+        builder.setPositiveButton("Thêm", (dialogInterface, i) -> {
+            int amt = Integer.parseInt(txtAmount.getText().toString());
+            Date date = calendar.getTime();
+            String des = txtDes.getText().toString();
+            Transaction tran = new Transaction(amt,date,des,cid,uid);
+
+            try {
+                tranVM.insert(tran);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
+            int newBalance = budget.getBalance() - amt;
+            budVM.updateBalance(cid,budget.getBalance() - amt);
+            if (newBalance < 0) {
+                String mes = "Số dư ngân sách trong danh mục " + category.getName() + " đã hết!";
+                Notification notif = new Notification(mes, date, false, uid);
+                notifVM.insert(notif);
+            } else
+            if (newBalance <= budget.getBalance()/100 * 10 || newBalance < 5000)
+            {
+                String mes = "Số dư ngân sách trong danh mục " + category.getName() + " gần cạn kiệt. Hãy cân nhắc chi tiêu trong tương lai.";
+                Notification notif = new Notification(mes, date, false, uid);
+                notifVM.insert(notif);
             }
         });
         builder.setNegativeButton("Trở lại", null);
@@ -159,6 +153,6 @@ public class TransactionActivity extends AppCompatActivity {
         listTrans.setAdapter(adapter);
         calendar = Calendar.getInstance();
         budget = new Budget();
-        category = (Category) getIntent().getSerializableExtra("cat");
+        category = (Category) getIntent().getSerializableExtra("cat_item");
     }
 }

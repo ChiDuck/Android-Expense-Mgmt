@@ -113,7 +113,7 @@ public class CategoryAdapter extends ArrayAdapter<Category> {
         item.setOnClickListener(view -> {
             Intent intent = new Intent(context, TransactionActivity.class);
             int user_id = context.getIntent().getIntExtra("user_id", 0);
-            intent.putExtra("cat",cat);
+            intent.putExtra("cat_item",cat);
             intent.putExtra("user_id",user_id);
             context.startActivity(intent);
         });
@@ -132,24 +132,19 @@ public class CategoryAdapter extends ArrayAdapter<Category> {
         Calendar sCalendar = Calendar.getInstance();
         Calendar eCalendar = Calendar.getInstance();
 
-        ibtnStartDate.setOnClickListener(view1 -> {
-            DateConverter.dateProcessor(txtStartDate, sCalendar, context);
-        });
-        ibtnEndDate.setOnClickListener(view1 -> {
-            DateConverter.dateProcessor(txtEndDate, eCalendar, context);
-        });
+        ibtnStartDate.setOnClickListener(view1 ->
+            DateConverter.dateProcessor(txtStartDate, sCalendar, context));
+        ibtnEndDate.setOnClickListener(view1 ->
+            DateConverter.dateProcessor(txtEndDate, eCalendar, context));
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setView(dialog);
-        builder.setPositiveButton("Thêm", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                int amt = Integer.parseInt(txtAmount.getText().toString());
-                Date sDate = sCalendar.getTime();
-                Date eDate = eCalendar.getTime();
-                Budget bud = new Budget(amt,amt,sDate,eDate,cid,uid);
-                budVM.insert(bud);
-            }
+        builder.setPositiveButton("Thêm", (dialogInterface, i) -> {
+            int amt = Integer.parseInt(txtAmount.getText().toString());
+            Date sDate = sCalendar.getTime();
+            Date eDate = eCalendar.getTime();
+            Budget bud = new Budget(amt,amt,sDate,eDate,cid,uid);
+            budVM.insert(bud);
         });
         builder.setNegativeButton("Trở lại", null);
         builder.setCancelable(false);

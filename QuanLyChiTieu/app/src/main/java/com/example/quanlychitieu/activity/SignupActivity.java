@@ -3,6 +3,7 @@ package com.example.quanlychitieu.activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Patterns;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -56,6 +57,10 @@ public class SignupActivity extends AppCompatActivity {
                 finish();
             } else if (flag) Toast.makeText(this, "Email đã có tài khoản!", Toast.LENGTH_SHORT).show();
         };
+    }
+
+    public boolean isValidEmail(String email) {
+        return email != null && Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
     private void addEvents() {

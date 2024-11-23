@@ -2,13 +2,18 @@ package com.example.quanlychitieu.adapter;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 
 import com.example.quanlychitieu.R;
 import com.example.quanlychitieu.model.Category;
@@ -32,7 +37,8 @@ public class TransactionAdapter extends ArrayAdapter<Transaction> {
         this.tranVM = tranVM;
     }
 
-    public View getView(int position, View convertView, ViewGroup parent) {
+    @NonNull
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         LayoutInflater inflater = this.context.getLayoutInflater();
         View item = inflater.inflate(this.resource, null);
 
@@ -40,9 +46,16 @@ public class TransactionAdapter extends ArrayAdapter<Transaction> {
         TextView txtDate = item.findViewById(R.id.txtDate);
         TextView txtDes = item.findViewById(R.id.txtDescription);
         ImageButton ibtnDelete = item.findViewById(R.id.ibtnDelete);
+        LinearLayout layout = item.findViewById(R.id.tran_item_bg);
 
         Transaction tran = this.objects.get(position);
-        txtAmount.setText(tran.getAmount()+" VND");
+        Category cat = (Category) context.getIntent().getSerializableExtra("cat_item");
+
+        if (!cat.isType()) {
+            txtAmount.setText("-" + tran.getAmount()+" VND");
+            layout.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#F1E2E2")));
+        }
+        else txtAmount.setText("+" + tran.getAmount()+" VND");
         txtDate.setText(DateConverter.formatDate(tran.getDate()));
         txtDes.setText(tran.getDescription());
 

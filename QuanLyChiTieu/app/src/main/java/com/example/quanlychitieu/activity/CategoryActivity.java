@@ -2,6 +2,8 @@ package com.example.quanlychitieu.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -34,6 +36,7 @@ public class CategoryActivity extends AppCompatActivity {
     CategoryViewModel catVM;
     TransactionViewModel tranVM;
     BudgetViewModel budVM;
+    int user_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,17 +62,21 @@ public class CategoryActivity extends AppCompatActivity {
     }
 
     private void addEvents() {
-        Intent preIntent = getIntent();
-        int user_id = preIntent.getIntExtra("user_id", 0);
         fabAddCat.setOnClickListener(view -> {
             Intent intent = new Intent(CategoryActivity.this,CategoryDetailActivity.class);
             intent.putExtra("user_id",user_id);
             startActivityForResult(intent, 1);
         });
+//
+//        listCats.setOnItemClickListener((adapterView, view, position, l) -> {
+//            Intent intent = new Intent(CategoryActivity.this, TransactionActivity.class);
+//            Category cat = adapter.getItem(position);
+//            intent.putExtra("cat_item", cat);
+//            intent.putExtra("user_id", user_id);
+//            startActivity(intent);
+//        });
 
-        ibtnBack.setOnClickListener(view -> {
-            finish();
-        });
+        ibtnBack.setOnClickListener(view -> finish());
     }
 
     private void addControls() {
@@ -82,6 +89,7 @@ public class CategoryActivity extends AppCompatActivity {
         budVM = new ViewModelProvider(this).get(BudgetViewModel.class); //initialize before adapter
         adapter = new CategoryAdapter(this,R.layout.cats_item,array,catVM,tranVM,budVM);
         listCats.setAdapter(adapter);
+        user_id = getIntent().getIntExtra("user_id", 0);
     }
 
     @Override
