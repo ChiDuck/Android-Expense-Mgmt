@@ -1,6 +1,7 @@
 package com.example.quanlychitieu.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.Button;
@@ -21,7 +22,13 @@ import com.example.quanlychitieu.model.Transaction;
 import com.example.quanlychitieu.viewmodel.CategoryViewModel;
 import com.example.quanlychitieu.viewmodel.NotificationViewModel;
 import com.example.quanlychitieu.viewmodel.TransactionViewModel;
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -49,6 +56,40 @@ public class MainActivity extends AppCompatActivity {
         addControls();
         dataObserve();
         addEvents();
+
+        BarChart barChart = findViewById(R.id.barChart);
+
+        // Create entries for the chart
+        ArrayList<BarEntry> barEntries = new ArrayList<>();
+        barEntries.add(new BarEntry(1f, 10f)); // x = 1, y = 10
+        barEntries.add(new BarEntry(2f, 20f)); // x = 2, y = 20
+        barEntries.add(new BarEntry(3f, 30f)); // x = 3, y = 30
+        barEntries.add(new BarEntry(4f, 40f)); // x = 4, y = 40
+
+        // Create a dataset and give it a label
+        BarDataSet barDataSet = new BarDataSet(barEntries, "Sales");
+        barDataSet.setColor(Color.BLUE);
+        barDataSet.setValueTextColor(Color.BLACK);
+        barDataSet.setValueTextSize(16f);
+
+        // Create BarData with the dataset
+        BarData barData = new BarData(barDataSet);
+
+        // Set data to the chart
+        barChart.setData(barData);
+
+        // Customize the chart
+        barChart.getDescription().setText("Monthly Sales Data");
+        barChart.getDescription().setTextSize(12f);
+
+        // Customize X-axis
+        XAxis xAxis = barChart.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setDrawGridLines(false);
+        xAxis.setGranularity(1f);
+
+        // Refresh the chart
+        barChart.invalidate(); // Refresh chart
     }
 
     private void dataObserve() {
@@ -81,21 +122,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
         ibtnNotif.setOnClickListener(view -> {
-            for (Notification notif : notifications)
-            {
-                if (notif.getMessage() != null) {
-                    int i = 0;
-                    Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(MainActivity.this, notif.toString(),Toast.LENGTH_SHORT).show();
-                        }
-                    }, i);
-                    i += 2000;
-                }
-            }
-
+            Intent intent = new Intent(MainActivity.this,NotificationActivity.class);
+            intent.putExtra("user_id",user_id);
+            startActivity(intent);
         });
     }
 

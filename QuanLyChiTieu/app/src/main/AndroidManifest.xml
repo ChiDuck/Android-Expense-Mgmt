@@ -13,6 +13,9 @@
         android:theme="@style/Theme.QuanLyChiTieu"
         tools:targetApi="31">
         <activity
+            android:name=".activity.NotificationActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.TransactionActivity"
             android:exported="false" />
         <activity
@@ -20,7 +23,7 @@
             android:exported="false" />
         <activity
             android:name=".activity.CategoryActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".activity.SignupActivity"
             android:exported="false" />

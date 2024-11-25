@@ -34,6 +34,10 @@ public class NotificationViewModel extends AndroidViewModel {
         new Thread(() -> notifDAO.deleteNotif(notif)).start();
     }
 
+    public void update(Notification notif) {
+        new Thread(() -> notifDAO.updateNotif(notif)).start();
+    }
+
     public LiveData<List<Notification>> getNotifFromUser(int id) {
         return notifDAO.getNotifFromUser(id);
     }
