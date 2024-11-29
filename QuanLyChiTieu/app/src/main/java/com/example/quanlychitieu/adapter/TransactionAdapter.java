@@ -52,10 +52,10 @@ public class TransactionAdapter extends ArrayAdapter<Transaction> {
         Category cat = (Category) context.getIntent().getSerializableExtra("cat_item");
 
         if (!cat.isType()) {
-            txtAmount.setText("-" + tran.getAmount()+" VND");
+            txtAmount.setText("-" + tran.getAmount()+"₫");
             layout.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#F1E2E2")));
         }
-        else txtAmount.setText("+" + tran.getAmount()+" VND");
+        else txtAmount.setText("+" + tran.getAmount()+"₫");
         txtDate.setText(DateConverter.formatDate(tran.getDate()));
         txtDes.setText(tran.getDescription());
 

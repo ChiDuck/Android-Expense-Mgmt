@@ -70,6 +70,7 @@
         android:layout_height="wrap_content"/>
     <LinearLayout
         android:orientation="horizontal"
+        android:gravity="center"
         android:layout_marginTop="5dp"
         android:paddingHorizontal="15dp"
         android:layout_width="match_parent"
@@ -79,17 +80,20 @@
             app:cornerRadius="12dp"
             android:drawableLeft="@drawable/ic_category"
             android:text="Quản lý danh mục"
+            android:paddingHorizontal="20dp"
             android:textSize="16sp"
             android:backgroundTint="#746EB8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <Button
-            android:text="Tài khoản"
+            android:id="@+id/btnLogout"
+            android:text="Đăng xuất"
             android:drawableLeft="@drawable/ic_info"
             app:cornerRadius="12dp"
             android:textSize="16sp"
+            android:paddingHorizontal="12dp"
             android:layout_marginStart="17dp"
-            android:backgroundTint="#9F98DF"
+            android:backgroundTint="#D16A6A"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>

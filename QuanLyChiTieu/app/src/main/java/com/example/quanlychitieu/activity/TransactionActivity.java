@@ -75,8 +75,8 @@ public class TransactionActivity extends AppCompatActivity {
             budVM.getBudgetById(category.getId()).observe(this, bud -> {
                 if (bud != null) {
                     budget = bud;
-                    txtAmount.setText(budget.getAmount() + " VND");
-                    txtAmountLeft.setText(bud.getBalance() + " VND");
+                    txtAmount.setText(budget.getAmount() + "₫");
+                    txtAmountLeft.setText(bud.getBalance() + "₫");
                     txtFullDate.setText(String.format("%s - %s", DateConverter.formatDate(budget.getStartdate()), DateConverter.formatDate(budget.getEnddate())));
                 }
             });
@@ -99,6 +99,8 @@ public class TransactionActivity extends AppCompatActivity {
         TextView txtDate = view.findViewById(R.id.txtDate);
         ImageButton ibtnDate = view.findViewById(R.id.ibtnDate);
         EditText txtDes = view.findViewById(R.id.txtDescription);
+
+        txtDate.setText(DateConverter.formatDate(Calendar.getInstance().getTime()));
 
         ibtnDate.setOnClickListener(view1 ->
             DateConverter.dateProcessor(txtDate, calendar, this));

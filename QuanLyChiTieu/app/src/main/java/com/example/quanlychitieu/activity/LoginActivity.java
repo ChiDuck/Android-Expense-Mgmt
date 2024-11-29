@@ -2,6 +2,8 @@ package com.example.quanlychitieu.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -49,6 +51,7 @@ public class LoginActivity extends AppCompatActivity {
                 // user.setLast_login(Calendar.getInstance().getTime());
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 intent.putExtra("user_id", user.getId());
+                intent.putExtra("user_name", user.getName());
                 startActivity(intent);
                 finish();
             } else {
@@ -77,5 +80,22 @@ public class LoginActivity extends AppCompatActivity {
         btnSignup = findViewById(R.id.btnSignup);
         userVM = new ViewModelProvider(this).get(UserViewModel.class);
        // userVM.deleteAll();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        btnLogin.setEnabled(false);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                btnLogin.setEnabled(true);
+            }
+        }, 1000);
     }
 }

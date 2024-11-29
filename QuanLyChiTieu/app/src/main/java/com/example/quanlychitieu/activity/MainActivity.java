@@ -41,8 +41,8 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView txtMoney;
-    Button btnCat, btnMonth, bthWeek, btnDay;
+    TextView txtMoney, txtWelcome;
+    Button btnCat, btnLogout, btnMonth, bthWeek, btnDay;
     ImageButton ibtnNotif;
     ImageView iconNotif;
     BarChart barChart;
@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     CategoryViewModel catVM;
     Observer<Category> observer;
     List<LiveData<Category>> listLiveCat;
+    String user_name;
     int user_id, totalMoney;
     float monthlyIn, monthlyEx,
         weeklyIn, weeklyEx,
@@ -181,6 +182,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addEvents() {
+        txtWelcome.setText("Xin chào, " + user_name);
+
         btnCat.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, CategoryActivity.class);
             intent.putExtra("user_id", user_id);
@@ -193,6 +196,12 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+        btnLogout.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+            startActivity(intent);
+            finish();
+        });
+
         btnMonth.setOnClickListener(view -> addBarChart(monthlyIn,monthlyEx));
         bthWeek.setOnClickListener(view -> addBarChart(weeklyIn,weeklyEx));
         btnDay.setOnClickListener(view -> addBarChart(dailyIn,dailyEx));
@@ -203,7 +212,9 @@ public class MainActivity extends AppCompatActivity {
         btnMonth = findViewById(R.id.btnMonth);
         bthWeek = findViewById(R.id.btnWeek);
         btnDay = findViewById(R.id.btnDay);
+        btnLogout = findViewById(R.id.btnLogout);
         txtMoney = findViewById(R.id.txtMoney);
+        txtWelcome = findViewById(R.id.txtWelcome);
         ibtnNotif = findViewById(R.id.ibtnNotif);
         iconNotif = findViewById(R.id.iconNotif);
         barChart = findViewById(R.id.barChart);
@@ -212,6 +223,7 @@ public class MainActivity extends AppCompatActivity {
         catVM = new ViewModelProvider(this).get(CategoryViewModel.class);
         tranVM = new ViewModelProvider(this).get(TransactionViewModel.class);
         user_id = getIntent().getIntExtra("user_id", 0);
+        user_name = getIntent().getStringExtra("user_name");
     }
 
     @Override

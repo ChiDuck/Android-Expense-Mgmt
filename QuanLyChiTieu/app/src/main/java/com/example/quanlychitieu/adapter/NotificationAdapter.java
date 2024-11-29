@@ -52,8 +52,7 @@ public class NotificationAdapter extends ArrayAdapter<Notification> {
 
         txtMes.setText(notif.getMessage());
         txtDate.setText(DateConverter.formatDateTime(notif.getDate()));
-        if (!notif.isStatus())
-            item_bg.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C9B6CF")));
+        if (!notif.isStatus()) item_bg.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#D8D8D8")));
 
 
         ibtnDelete.setOnClickListener(view -> notifVM.delete(notif));

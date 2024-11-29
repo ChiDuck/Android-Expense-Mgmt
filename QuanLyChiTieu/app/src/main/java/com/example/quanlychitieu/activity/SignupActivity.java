@@ -21,7 +21,6 @@ import com.example.quanlychitieu.model.User;
 import com.example.quanlychitieu.util.PasswordEncryption;
 import com.example.quanlychitieu.viewmodel.UserViewModel;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -33,6 +32,7 @@ public class SignupActivity extends AppCompatActivity {
     Observer<User> observer;
     User user;
     boolean flag = true;
+    int code;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,22 +65,25 @@ public class SignupActivity extends AppCompatActivity {
 
     private void addEvents() {
         btnSignup.setOnClickListener(view -> {
-    //        btnSignup.setEnabled(false);
-    //        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-    //            @Override
-    //            public void run() {
-    //                btnSignup.setEnabled(true);
-    //            }
-    //        }, 2000);
+            btnSignup.setEnabled(false);
+            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    btnSignup.setEnabled(true);
+                }
+            }, 1500);
+
             String name = txtName.getText().toString();
             String email = txtEmail.getText().toString();
             String pass = PasswordEncryption.hashPassword(txtPasswd.getText().toString());
             Date create = Calendar.getInstance().getTime();
 
             if (!email.isEmpty() && !name.isEmpty() && !pass.isEmpty()) {
-                user = new User(name, email, pass, create, null);
-                userVM.signupCheck(email).removeObserver(observer);
-                userVM.signupCheck(email).observe(this, observer);
+                if (isValidEmail(email)) {
+                    user = new User(name, email, pass, create, null);
+                    userVM.signupCheck(email).removeObserver(observer);
+                    userVM.signupCheck(email).observe(this, observer);
+                } else Toast.makeText(this, "Email chưa đúng định dạng", Toast.LENGTH_SHORT).show();
             } else Toast.makeText(this, "Vui lòng điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
         });
 

@@ -68,8 +68,8 @@ public class CategoryAdapter extends ArrayAdapter<Category> {
         budVM.getBudgetById(cat.getId()).observe((LifecycleOwner) context, bud -> {
             if (bud != null)
             {
-                txtBudget.setText(bud.getAmount()+" VND");
-                Log.i("budget", bud.getAmount()+" VND");
+                txtBudget.setText(bud.getAmount()+"₫");
+                ibtnBudget.setEnabled(false);
             }
         });
         txtName.setText(cat.getName());
@@ -131,6 +131,9 @@ public class CategoryAdapter extends ArrayAdapter<Category> {
         ImageButton ibtnEndDate = dialog.findViewById(R.id.ibtnEndDate);
         Calendar sCalendar = Calendar.getInstance();
         Calendar eCalendar = Calendar.getInstance();
+
+        txtStartDate.setText(DateConverter.formatDate(Calendar.getInstance().getTime()));
+        txtEndDate.setText(DateConverter.formatDate(Calendar.getInstance().getTime()));
 
         ibtnStartDate.setOnClickListener(view1 ->
             DateConverter.dateProcessor(txtStartDate, sCalendar, context));
