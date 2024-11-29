@@ -17,6 +17,8 @@ public interface TransactionDAO {
     Transaction getTranById(int id);
     @Query("SELECT * FROM `transaction` WHERE category_id = :id")
     LiveData<List<Transaction>> getALLTransByCat(int id);
+    @Query("SELECT * FROM `transaction` WHERE user_id = :id")
+    LiveData<List<Transaction>> getALLTransFromUser(int id);
     @Query("SELECT * FROM `transaction`")
     LiveData<List<Transaction>> getALLTrans();
     @Insert

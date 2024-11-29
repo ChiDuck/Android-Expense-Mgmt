@@ -54,7 +54,7 @@ public class CategoryActivity extends AppCompatActivity {
     }
 
     private void dataObserve() {
-        catVM.getAllCats().observe(this, cats -> {
+        catVM.getAllCatsFromUser(user_id).observe(this, cats -> {
             if (cats != null) {
                 adapter.setCats(cats);
             }
@@ -67,14 +67,6 @@ public class CategoryActivity extends AppCompatActivity {
             intent.putExtra("user_id",user_id);
             startActivityForResult(intent, 1);
         });
-//
-//        listCats.setOnItemClickListener((adapterView, view, position, l) -> {
-//            Intent intent = new Intent(CategoryActivity.this, TransactionActivity.class);
-//            Category cat = adapter.getItem(position);
-//            intent.putExtra("cat_item", cat);
-//            intent.putExtra("user_id", user_id);
-//            startActivity(intent);
-//        });
 
         ibtnBack.setOnClickListener(view -> finish());
     }

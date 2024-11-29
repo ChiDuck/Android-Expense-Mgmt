@@ -47,7 +47,7 @@ public class NotificationActivity extends AppCompatActivity {
     }
 
     private void dataObserve() {
-        notifVM.getAllNotifs().observe(this, notifs -> {
+        notifVM.getNotifsFromUser(user_id).observe(this, notifs -> {
             if (notifs != null) {
                 txtNoNotif.setVisibility(View.GONE);
                 adapter.setNotifs(notifs);

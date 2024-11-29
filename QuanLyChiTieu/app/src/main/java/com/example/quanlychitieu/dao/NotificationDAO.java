@@ -25,5 +25,5 @@ public interface NotificationDAO {
     void updateNotif(Notification... notifs);
 
     @Query("SELECT * FROM notification WHERE user_id= :id")
-    LiveData<List<Notification>> getNotifFromUser(int id);
+    LiveData<List<Notification>> getNotifsFromUser(int id);
 }

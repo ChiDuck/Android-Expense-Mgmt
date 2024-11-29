@@ -14,11 +14,17 @@ import java.util.Date;
 
 public class DateConverter {
     static SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
+    static SimpleDateFormat sdfDateTime = new SimpleDateFormat("dd/MM/yyyy hh:mm aa");
 
     @NonNull
     public static String formatDate(Date date)
     {
         return sdfDate.format(date);
+    }
+
+    public static String formatDateTime(Date date)
+    {
+        return sdfDateTime.format(date);
     }
 
     @TypeConverter

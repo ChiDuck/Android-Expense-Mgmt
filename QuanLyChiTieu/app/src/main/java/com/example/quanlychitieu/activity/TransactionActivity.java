@@ -1,7 +1,6 @@
 package com.example.quanlychitieu.activity;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -118,18 +117,22 @@ public class TransactionActivity extends AppCompatActivity {
                 throw new RuntimeException(e);
             }
 
-            int newBalance = budget.getBalance() - amt;
-            budVM.updateBalance(cid,budget.getBalance() - amt);
-            if (newBalance < 0) {
-                String mes = "Số dư ngân sách trong danh mục " + category.getName() + " đã hết!";
-                Notification notif = new Notification(mes, date, false, uid);
-                notifVM.insert(notif);
-            } else
-            if (newBalance <= budget.getBalance()/100 * 10 || newBalance < 5000)
-            {
-                String mes = "Số dư ngân sách trong danh mục " + category.getName() + " gần cạn kiệt. Hãy cân nhắc chi tiêu trong tương lai.";
-                Notification notif = new Notification(mes, date, false, uid);
-                notifVM.insert(notif);
+            // Kiểm tra số dư ngân sách để thông báo
+            if (!category.isType()) {
+                int newBalance = budget.getBalance() - amt;
+                Date curDate = Calendar.getInstance().getTime();
+                budVM.updateBalance(cid,budget.getBalance() - amt);
+                if (newBalance <= 0) {
+                    String mes = "Số dư ngân sách trong danh mục " + category.getName() + " đã hết!";
+                    Notification notif = new Notification(mes, curDate, false, uid);
+                    notifVM.insert(notif);
+                } else
+                if (newBalance <= budget.getBalance()/100 * 20 || newBalance < 20000)
+                {
+                    String mes = "Số dư ngân sách trong danh mục " + category.getName() + " gần cạn kiệt. Hãy cân nhắc chi tiêu trong tương lai.";
+                    Notification notif = new Notification(mes, curDate, false, uid);
+                    notifVM.insert(notif);
+                }
             }
         });
         builder.setNegativeButton("Trở lại", null);

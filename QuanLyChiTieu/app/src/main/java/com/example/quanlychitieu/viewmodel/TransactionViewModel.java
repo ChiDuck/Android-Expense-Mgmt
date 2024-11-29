@@ -30,6 +30,10 @@ public class TransactionViewModel extends AndroidViewModel {
         return tranDAO.getALLTransByCat(id);
     }
 
+    public LiveData<List<Transaction>> getAllTransFromUser(int id) {
+        return tranDAO.getALLTransFromUser(id);
+    }
+
     public void insert(Transaction tran) throws InterruptedException {
         Thread thread = new Thread(() -> tranDAO.insertTran(tran));
         thread.start();

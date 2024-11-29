@@ -9,35 +9,51 @@
     android:orientation="vertical"
     tools:context=".activity.MainActivity">
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
             android:background="@drawable/round_bottom"
             android:backgroundTint="#CBDB74"
-            android:padding="15dp"
-            android:layout_gravity="top"
             android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:padding="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
             <TextView
                 android:id="@+id/txtWelcome"
-                android:text="Xin chào, "
-                android:textSize="25sp"
-                android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Xin chào, "
+                android:textSize="25sp" />
+
             <ImageButton
                 android:id="@+id/ibtnNotif"
-                android:src="@drawable/ic_notif"
-                android:background="@null"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/ripple_with_round_item"
                 android:scaleX="1.5"
                 android:scaleY="1.5"
-                android:layout_width="40dp"
-                android:layout_height="match_parent"/>
+                android:src="@drawable/ic_notif" />
         </LinearLayout>
-    </FrameLayout>
 
+        <ImageView
+            android:id="@+id/iconNotif"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="18dp"
+            android:src="@drawable/ic_reddot"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -97,136 +113,67 @@
             android:layout_height="wrap_content"/>
     </LinearLayout>
 
+    <TextView
+        android:layout_marginTop="30dp"
+        android:textSize="23sp"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:text="Thống kê giao dịch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
         <LinearLayout
+            android:layout_marginVertical="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-        <TextView
-            android:text="Tổng thu nhập"
-            android:textSize="25sp"
-            android:layout_marginTop="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
+            android:layout_height="wrap_content">
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/barChart"
+                android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:text="Trong tháng này:"
-                android:textSize="20sp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:textAlignment="textEnd"
-                android:layout_weight="1"
-                android:text="0 VND"
-                android:textSize="20sp"
+                android:layout_height="300dp"/>
+            <LinearLayout
+                android:paddingVertical="20dp"
+                android:layout_gravity="clip_vertical"
+                android:layout_weight="6.8"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="match_parent">
+                <Button
+                    android:id="@+id/btnMonth"
+                    android:padding="0dp"
+                    android:textSize="15dp"
+                    android:text="Tháng này"
+                    android:layout_weight="1"
+                    app:cornerRadius="12dp"
+                    android:layout_marginVertical="3dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"/>
+                <Button
+                    android:id="@+id/btnWeek"
+                    android:padding="0dp"
+                    android:textSize="15dp"
+                    android:text="Tuần này"
+                    app:cornerRadius="12dp"
+                    android:layout_weight="1"
+                    android:layout_marginVertical="3dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"/>
+                <Button
+                    android:id="@+id/btnDay"
+                    android:padding="0dp"
+                    android:textSize="15dp"
+                    android:text="Hôm nay"
+                    app:cornerRadius="12dp"
+                    android:layout_weight="1"
+                    android:layout_marginVertical="3dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"/>
+            </LinearLayout>
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_weight="1"
-                android:text="Trong tuần này:"
-                android:textSize="20sp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:textAlignment="textEnd"
-                android:layout_weight="1"
-                android:text="0 VND"
-                android:textSize="20sp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_weight="1"
-                android:text="Trong hôm nay:"
-                android:textSize="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:textAlignment="textEnd"
-                android:layout_weight="1"
-                android:text="0 VND"
-                android:textSize="20sp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
-        <TextView
-            android:text="Tổng chi tiêu"
-            android:textSize="25sp"
-            android:layout_marginTop="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_weight="1"
-                android:text="Trong tháng này:"
-                android:textSize="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:textAlignment="textEnd"
-                android:layout_weight="1"
-                android:text="0 VND"
-                android:textSize="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_weight="1"
-                android:text="Trong tuần này:"
-                android:textSize="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:textAlignment="textEnd"
-                android:layout_weight="1"
-                android:text="0 VND"
-                android:textSize="20sp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_weight="1"
-                android:text="Trong hôm nay:"
-                android:textSize="20sp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:textAlignment="textEnd"
-                android:layout_weight="1"
-                android:text="0 VND"
-                android:textSize="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
-    </LinearLayout>
-    <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/barChart"
-        android:layout_margin="15dp"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"/>
+
     </LinearLayout>
     </ScrollView>
 

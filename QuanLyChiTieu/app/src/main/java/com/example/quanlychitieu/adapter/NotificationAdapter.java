@@ -15,11 +15,14 @@ import androidx.annotation.NonNull;
 
 import com.example.quanlychitieu.R;
 import com.example.quanlychitieu.model.Notification;
+import com.example.quanlychitieu.util.DateConverter;
 import com.example.quanlychitieu.viewmodel.NotificationViewModel;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import kotlinx.coroutines.Delay;
 
 public class NotificationAdapter extends ArrayAdapter<Notification> {
     Activity context;
@@ -48,18 +51,12 @@ public class NotificationAdapter extends ArrayAdapter<Notification> {
         Notification notif = this.objects.get(position);
 
         txtMes.setText(notif.getMessage());
-        txtDate.setText(notif.getMessage());
-        if (!notif.isStatus()) item_bg.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#CBCBCB")));
+        txtDate.setText(DateConverter.formatDateTime(notif.getDate()));
+        if (!notif.isStatus())
+            item_bg.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C9B6CF")));
 
-        ibtnDelete.setOnClickListener(view -> {
-//            AlertDialog.Builder builder = new AlertDialog.Builder(context);
-//            builder.setTitle("Xóa");
-//            builder.setMessage("Bạn có chắc chắn mốn xóa giao dịch này?");
-//            builder.setPositiveButton("Có", (dialogInterface, i) -> tranVM.delete(tran));
-//            builder.setNegativeButton("Không", null);
-//            builder.show();
-            notifVM.delete(notif);
-        });
+
+        ibtnDelete.setOnClickListener(view -> notifVM.delete(notif));
 
         item.setOnClickListener(view -> {
             notif.setStatus(true);
